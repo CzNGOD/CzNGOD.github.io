@@ -7,7 +7,38 @@
 </head>
 <body>
 	<form action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi">
-		
+	<h1>Café Starbugs</h1>
+	<br>
+	<h2>Pedido Online</h2>
+	<br>
+	<h3>Preencha o formulário abaixo e clique em "Enviar Pedido" para solicitar uma caixa de grãos personalizados</h3>
+	<br>
+	<p>Escolha a variedade de grãos:	<select name="grãos">
+									<option value="GC">Grãos da Colombia</option>
+									<option value="GB">Grãos do Brasil</option>
+									<option value="GB">Grãos da Argentina</option>
+									<option value="GB">Grãos do Chile</option>
+									</select> </p>
+	<br>
+	<p>Tipo:</p>
+	<input type="radio" name="g1" value="Grãoi" checked> Grãos Inteiros<br>
+	<input type="radio" name="g2" value="Grãom"> Grãos Moidos<br>
+	<p>Extras:</p>
+	<input type="checkbox" name="o1" value="opção1"> Embalar para presente<br>
+	<input type="checkbox" name="o2" value="opção2"> Quero um catálogo com cafés especiais<br>
+	
+	<p>Enviar para:</p>
+	Nome:<input type="text" size="45"><br>
+	Endereço:<input type="text" size="45"><br>
+	Cidade:<input type="text" size="45"><br>
+	Estado:<input type="text" size="45"><br>
+	CEP:<input type="text" size="45">
+	
+	<p>Observações:</p><br>
+	<textarea rows="10" cols="40" maxlength="500"></textarea><br>
+	
+	<input type="submit" Value="Enviar Pedido">
+	
 	</form>
 
 </body>
