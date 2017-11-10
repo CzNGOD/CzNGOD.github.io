@@ -1,4 +1,4 @@
-./estilos
+./estilotabela
 
 pause
 del "%0"

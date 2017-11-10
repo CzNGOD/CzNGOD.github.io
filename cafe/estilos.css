@@ -4,3 +4,17 @@ font-family: arial;
 font-size: 15pt;
 background-color: #ffff00;
 }
+
+h1{
+color:#ECF728;}
+h2{
+color:#ECF728;}
+h3{
+color:#ECF728;}
+
+table{
+border: 3px  solid #FFFF00;
+}
+td{
+border: 3px  #FFFF00;
+}
