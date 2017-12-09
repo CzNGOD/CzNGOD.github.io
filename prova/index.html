@@ -13,6 +13,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <style>
 
+  h1{
+      border: solid;
+      border-width: 1px; 
+    }
+.textotabela{
+text-align: justify;
+}
 .branco {
         color: white;
 }
@@ -27,50 +34,51 @@
 
   </head>
   <body>
+
    <div id="menucima">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills" style="background: gray;">
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">Frederico Westphalen</a>
+    <a class="nav-link disabled" href="#" style="color: white;">Frederico Westphalen</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Início</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Sobre</a>
+    <a class="nav-link" href="#Sobre">Sobre</a>
   </li>
    <li class="nav-item">
-    <a class="nav-link" href="#">Distância</a>
+    <a class="nav-link" href="#Distancia">Distância</a>
      <li class="nav-item">
-    <a class="nav-link" href="#">Contato</a>
+    <a class="nav-link" href="#Contatos">Contato</a>
   </li>
   </li>
 </ul>
 </div>
 
-
+<div class="container-fluid">
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" height=>
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
-  <div class="carousel-inner">
+  <div class="carousel-inner" style="min-width: 80%;">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="img1.jpg" alt="First slide" width="300" height="400">
+      <img class="d-block w-100" src="img1.jpg" alt="First slide" width="300" height="500">
       <div class="carousel-caption d-none d-md-block">
         <h3>Rua dos Arcos</h3>
         <p>Centro da cidade</p>
       </div>
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="img2.jpg" alt="Second slide" width="300" height="400">
+    <div class="carousel-item" style="min-width: 80%;">
+      <img class="d-block w-100" src="img2.jpg" alt="Second slide" width="300" height="500">
       <div class="carousel-caption d-none d-md-block">
         <h3>Igreja Central</h3>
         <p>Importante centro religioso</p>
       </div>
     </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="img3.jpg" alt="Third slide" width="300" height="400">
+    <div class="carousel-item" style="min-width: 80%;">
+      <img class="d-block w-100" src="img3.jpg" alt="Third slide" width="300" height="500">
       <div class="carousel-caption d-none d-md-block">
        <h3>Local desconhecido</h3>
         <p>Idem ao titulo</p>
@@ -86,38 +94,39 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+</div>
 
  
 
 <br>
 
-  <center><h1>Sobre</h1></center>
+  <center><h1><a name="Sobre">Sobre</a></h1></center>
  
 <br>
 
 
   <table  align="center">
     <tr>
-<td height="100" width="600"><center>Frederico Westphalen é um município brasileiro do estado do Rio Grande do Sul. Localiza-se a uma latitude 27º21'33" sul e a uma longitude 53º23'40" oeste, estando a um a altitude de 566 metros. Sua população, de acordo com a estimativa para 2017, feita pelo IBGE, é de 30.832 habitantes. Possui uma área de 264,53 km². É o centro regional da microrregião homônima.</center></td>
-<td height="100" width="600"><center>Numa dessas viagens, um barril de aguardente caiu da carroça, danificando a tampa e, para não jogar fora a vasilha, eles tiveram a ideia de colocá-lo de boca para baixo sobre uma fonte, abaixo de uma sombra, introduzindo uma taquara no orifício lateral. A localização do barril à beira da estrada, com água limpa e muita sombra, colaborou para o surgimento da expressão “vou descansar, comer e dormir no barril”. Assim o lugarejo foi crescendo na selva do Vale do Alto Uruguai, e passou a chamar-se simplesmente “Barril”, nome que permaneceu por anos</center>.</td>
+<td  id="textotabela" height="100" width="600">Frederico Westphalen é um município brasileiro do estado do Rio Grande do Sul. Localiza-se a uma latitude 27º21'33" sul e a uma longitude 53º23'40" oeste, estando a um a altitude de 566 metros. Sua população, de acordo com a estimativa para 2017, feita pelo IBGE, é de 30.832 habitantes. Possui uma área de 264,53 km². É o centro regional da microrregião homônima.</td>
+<td id="textotabela" height="100" width="600">Numa dessas viagens, um barril de aguardente caiu da carroça, danificando a tampa e, para não jogar fora a vasilha, eles tiveram a ideia de colocá-lo de boca para baixo sobre uma fonte, abaixo de uma sombra, introduzindo uma taquara no orifício lateral. A localização do barril à beira da estrada, com água limpa e muita sombra, colaborou para o surgimento da expressão “vou descansar, comer e dormir no barril”. Assim o lugarejo foi crescendo na selva do Vale do Alto Uruguai, e passou a chamar-se simplesmente “Barril”, nome que permaneceu por anos.</td>
 </tr>
 <tr>
-<td height="100" width="600"><center>Os primeiros migrantes chegaram em 1918, época em que aconteceu a abertura das primeiras picadas, anteriores a estrada definitiva, que levou 10 anos para ser construída, entre Boca da Picada (atual município de Seberi) e Águas do Mel (atual Iraí)</center>.</td>
-<td height="100" width="600"><center>Mais tarde, pelo Decreto 30, do Prefeito de Palmeira das Missões, por decisão de uma assembleia de moradores, foi fixado o nome de Vila Frederico Westphalen, homenageando o engenheiro que colonizou a região sob o comando do Governo do Estado. Frederico Westphalen está sepultado no Cemitério da Santa Casa de Misericórdia em Porto Alegre.</center></td>
+<td id="textotabela" height="100" width="600">Os primeiros migrantes chegaram em 1918, época em que aconteceu a abertura das primeiras picadas, anteriores a estrada definitiva, que levou 10 anos para ser construída, entre Boca da Picada (atual município de Seberi) e Águas do Mel (atual Iraí).</td>
+<td </td>
 </tr>
 <tr>
-<td height="100" width="600">Os primeiros carreteiros, sob o comando de um comerciante estabelecido na Boca da Picada, faziam o transporte de produtos manufaturados e da produção agrícola.</td>
-<td></td>
+<td id="textotabela" height="100" width="600">Os primeiros carreteiros, sob o comando de um comerciante estabelecido na Boca da Picada, faziam o transporte de produtos manufaturados e da produção agrícola.</td>
+<td id="textotabela" height="100" width="600">Mais tarde, pelo Decreto 30, do Prefeito de Palmeira das Missões, por decisão de uma assembleia de moradores, foi fixado o nome de Vila Frederico Westphalen, homenageando o engenheiro que colonizou a região sob o comando do Governo do Estado. Frederico Westphalen está sepultado no Cemitério da Santa Casa de Misericórdia em Porto Alegre.</td>
 </tr>
   </table>
 
 
 <br>
-<center><h1>Distância</h1></center>
+<center><h1><a name="Distancia">Distância</a></h1></center>
 <br>
   <table align="center">
 <tr>
-<td height="100" width="600"><img src="google.jpg"></td>
+<td height="100" width="600"><img src="google.jpg" align="center"></td>
 <td height="100" width="600">
   <table border="1px" align="center">
     <tr>
@@ -149,7 +158,7 @@
 </tr>
 </table>
 <br>
-<center><h1>Contatos</h1></center>
+<center><h1><a name="Contatos">Contato</a></h1></center>
 <br>
 <table  align="center">
   <tr>
@@ -184,11 +193,11 @@ Texto para espaçamento
 </table>
 <br>
 <center>
-<h4>Prova desenvolvida por</h4>
-<h4>Cassiano Trezzi e Henrique Abramo Piaia</h4>
-</center>
-  </body>
-
+  <br>
+<div>
+  Prova desenvolvida por:<br>
+  Cassiano Trezzi e Henrique A. Piaia<br>
+</div>
 
 
 </html>
