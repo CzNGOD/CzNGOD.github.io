@@ -10,8 +10,8 @@
 	 exit();
   }
   
-  $btnExcluir = "fotos/editar.jpg";
-  $btnAlterar = "fotos/excluir.jpg";
+  $btnExcluir = "fotos/excluir.png";
+  $btnAlterar = "fotos/editar.png";
 
 
   $mensagem = "";
@@ -136,10 +136,13 @@
 	 
    if ( mysqli_num_rows($lista) > 0 ) {
 		
-		$tabela = "<table border='4'>";
+		$tabela = "";
 		
-		$tabela = $tabela."<tr><th>Número da doença</th><th>Data da doença</th><th>Medicamento Usado</th>
-		             <th>Alterar</th><th>Excluir</th></tr>";
+		$tabela = $tabela."<div class='container-fluid' size='50px'><tr><th><div class='alert alert-success' role='alert'>Numero de registro</div></th>
+		<th><div class='alert alert-success' role='alert'>Data da ocorrencia</div></th>
+		<th><div class='alert alert-success' role='alert'>Medicamento Usado</div></th>
+		<th><div class='alert alert-danger' role='alert'>Alterar</div></th>
+		<th><div class='alert alert-danger' role='alert'>Excluir</div></th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
@@ -161,7 +164,7 @@
 		               </form>";
 		   
 		   $tabela = $tabela."<tr><td>$viddoenca</td><td>$vocorenciadoenca</td><td>$vmedicamento</td>
-		        <td>$alterar</td><td>$excluir</td></tr>";
+		        <td>$alterar</td><td>$excluir</td></tr></div>";
 		}
 		
 		$tabela = $tabela."</table>"; 
@@ -188,7 +191,7 @@
 		<div class="alert alert-primary" role="alert">Controle de Doenças</div>
 	</th>
 	
-	<?php echo $mensagem; ?>
+	
 	<tr>
 		<td>
 <div class="container-fluid" height="50px">
@@ -213,15 +216,15 @@
 </div>
 </form>
 	
-	
 	<legend>Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
 	
-	
+	<?php echo $mensagem; ?>
 
 	<br><br>
 	</td>
+
 </tr>
 	</table>
 
