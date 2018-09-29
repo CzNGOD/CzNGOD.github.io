@@ -1,6 +1,6 @@
 <?php
   
-  $bd = mysqli_connect("localhost","root","","hfw"); //"adelar " é o bd das notas fiscais 
+  $bd = mysqli_connect("localhost","root","","hfw"); 
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
@@ -183,7 +183,7 @@
 	
 		<legend>Dados das doenças:</legend>
 		
-		<form action="index.php" method="post">
+		<form action="controle_doenca.php" method="post">
 		
 		Código da doença :  <input type="text" name="iddoenca" value="<?php echo $iddoenca; ?>"> <br><br>
 		Data da doença:     <input type="text" name="ocorrenciadoenca" value="<?php echo $ocorrenciadoenca; ?>" size="40"> <br>
@@ -207,7 +207,7 @@
 	<br><br>
 	<hr>
 	</table>
-	
+
 </body>
 
 </html>
