@@ -216,6 +216,41 @@
 </div>
 </form>
 	
+	</td>
+
+</div>
+
+	<td>
+	<table>
+		<tr>
+			<td><div class="alert alert-warning" role="alert">Codido da Doença</div></td>
+			<td><div class="alert alert-warning" role="alert">Codigo do Medicamento a ser usado e Descrição</div></td>
+		</tr>
+		<tr>
+			<td><div class="alert alert-warning" role="alert">Código: 1 - Diaréia</div></td>
+			<td><div class="alert alert-warning" role="alert"><div>Código: 1 - Cevamutin</div></td>
+		</tr>
+		<tr>
+			<td><div class="alert alert-warning" role="alert">Código:2 - Diaréia de Sangue</div></td>
+			<td><div class="alert alert-warning" role="alert"><div>Código:2 - HertaKá</div></td>
+		</tr>
+		<tr>
+			<td><div class="alert alert-warning" role="alert"> Código: 3 - Pneumunia</div></td>
+			<td><div class="alert alert-warning" role="alert"><div>Código: 3 - Iflox</div></td>
+		</tr>
+		<tr>
+			<td><div class="alert alert-warning" role="alert"> Código: 4 - Artrite</div></td>
+			<td><div class="alert alert-warning" role="alert"><div>Código: 4 - Vetflogin</div></td>
+		</tr>
+		<tr>
+			<td><div class="alert alert-warning" role="alert">Codigo 5: - Úlcera</div></td>
+			<td><div class="alert alert-warning" role="alert"><div>Codigo 5: - Maxican 2%</div></td>
+		</tr>
+	</table>
+
+	</td>
+</tr>	
+<td>
 	<legend>Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
@@ -223,9 +258,7 @@
 	<?php echo $mensagem; ?>
 
 	<br><br>
-	</td>
-
-</tr>
+</td>
 	</table>
 
 </body>
