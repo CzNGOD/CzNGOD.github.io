@@ -261,6 +261,10 @@
 </td>
 	</table>
 
+<center>
+<a href="index.html" class="badge badge-primary">Voltar a página inicial</a>
+</center>
+
 </body>
 
 </html>

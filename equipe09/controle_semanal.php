@@ -190,7 +190,7 @@
 </head>
 
 <body>
-	<table>
+	<table align="center">
 	<th>
 		<div class="alert alert-primary" role="alert">Controle de Consumo de Ração</div>
 	</th>
@@ -245,9 +245,15 @@
 
 	<br><br>
 </td>
+
+
 	</table>
 
 </body>
+
+<center>
+<a href="index.html" class="badge badge-primary">Voltar a página inicial</a>
+</center>
 
 </html>
 
