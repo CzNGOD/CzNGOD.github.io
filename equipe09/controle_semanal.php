@@ -19,6 +19,7 @@
   $idsemana  = "";
   $semana  = "";
   $consumosemana  = "";
+  $numerolote = "";
   
   
   
@@ -33,14 +34,14 @@
 	    $idsemana = mysqli_real_escape_string($bd, $_POST["idsemana"] ) ;
 	    $semana  = mysqli_real_escape_string($bd, $_POST["semana"] ) ;
 	    $consumosemana = mysqli_real_escape_string($bd, $_POST["consumosemana"] ) ;
-	    
+	    $numerolote = mysqli_real_escape_string($bd, $_POST["numerolote"] ) ;
 
      }
      
      if (strtoupper($acao) == "INCLUIR") {
 		 
-		 $sql = "insert into consumo (idsemana, semana, consumosemana)
-		                values ('$idsemana','$semana','$consumosemana')";
+		 $sql = "insert into consumo (idsemana, semana, consumosemana, numerolote)
+		                values ('$idsemana','$semana','$consumosemana', '$numerolote')";
 		                
 		 if ( ! mysqli_query($bd, $sql) ) {
 			
@@ -65,6 +66,7 @@
 		          set 
 		              semana = '$semana',
 		              consumosemana = '$consumosemana'
+		              numerolote = '$numerolote'
 		          where
 		              idsemana = '$idsemana' ";
 		              
@@ -104,7 +106,7 @@
      	
      	$descr_acao = "Salvar";
 
-     	$sql = "select idsemana, semana, consumosemana,  
+     	$sql = "select idsemana, semana, consumosemana, numerolote 
      		        from consumo
      	        where idsemana = '$idsemana' ";
 
@@ -117,6 +119,7 @@
              $idsemana = $dados["idsemana"];
              $semana = $dados["semana"];
              $consumosemana = $dados["consumosemana"];
+             $$numerolote = $dados["numerolote"];
             
      	}
 
@@ -125,7 +128,7 @@
    }
 
    
-   $sql_listar = "select idsemana, semana, consumosemana from consumo order by idsemana";
+   $sql_listar = "select idsemana, semana, consumosemana, numerolote from consumo order by idsemana";
 	 
    $lista = mysqli_query($bd, $sql_listar);
 	 
@@ -134,13 +137,14 @@
 		$tabela = "<table border='4'>";
 		
 		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Seamana Atual</th>
-		             <th>Consumo Acumulado</th><th>Alterar</th><th>Excluir</th></tr>";
+		             <th>Consumo Acumulado</th><th>Lote Numero:</th><th>Alterar</th><th>Excluir</th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
 		   $vidsemana = $dados["idsemana"];
-		   $vidsemana  = $dados["semana"];
+		   $vsemana  = $dados["semana"];
 		   $vconsumosemana  = $dados["consumosemana"];
+		   $vnumerolote = $dados["numerolote"];
 		   
 
 		   
@@ -156,8 +160,8 @@
 		                  <input type='image' src='$btnExcluir'> 
 		               </form>";
 		   
-		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$semana</td>
-		        <td>$consumosemana</td><td>$alterar</td><td>$excluir</td></tr>";
+		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$vsemana</td>
+		        <td>$vconsumosemana</td><td>$vnumerolote</td><td>$alterar</td><td>$excluir</td></tr>";
 		}
 		
 		$tabela = $tabela."</table>"; 
@@ -187,6 +191,7 @@
 		Numero de Registro:  <input type="text" name="idsemana" value="<?php echo $idsemana; ?>"> <br>
 		Semana Atual: <input type="text" name="semana" value="<?php echo $semana; ?>" size="40"> <br>
 		Consumo Acumulado: <input type="text" name="consumosemana" value="<?php echo $consumosemana; ?>"> <br>
+		Numero do Lote: <input type="text" name="numerolote" value="<?php echo $numerolote; ?>"> <br>
 		<br><br>
 		
 		<input type="submit" value="Novo">

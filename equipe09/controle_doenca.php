@@ -18,8 +18,8 @@
 
   $iddoenca= "";
   $ocorrenciadoenca= "";
+  $medicamento="";
   
-  //Essas variáveis servem para indicar qual dos dois radios estarão marcados
   
   
   if ( ! isset($_POST["acao"]) )
@@ -30,7 +30,8 @@
 	 
 	 if (strtoupper($acao) == "INCLUIR" || strtoupper($acao) == "SALVAR" ) {
 	    $iddoenca = mysqli_real_escape_string($bd, $_POST["iddoenca"] ) ;
-	    $ocorrenciadoenca  = mysqli_real_escape_string($bd, $_POST["ocorrenciadoenca"] ) ;
+	    $ocorrenciadoenca  = mysqli_real_escape_string($bd, $_POST["ocorrenciadoenca"] );
+	    $medicamento  = mysqli_real_escape_string($bd, $_POST["medicamento"] ) ;
 	    
 	    
 
@@ -38,8 +39,8 @@
      
      if (strtoupper($acao) == "INCLUIR") {
 		 
-		 $sql = "insert into doenca (iddoenca, ocorrenciadoenca)
-		                values ('$iddoenca','$ocorrenciadoenca')";
+		 $sql = "insert into doenca (iddoenca, ocorrenciadoenca,medicamento)
+		                values ('$iddoenca','$ocorrenciadoenca', '$medicamento')";
 		                
 		 if ( ! mysqli_query($bd, $sql) ) {
 			
@@ -63,6 +64,7 @@
 		 $sql = " update doenca 
 		          set 
 		              ocorrenciadoenca = '$ocorrenciadoenca',
+		              medicamento = '$medicamento'
 		              
 		          where
 		              iddoenca = '$iddoenca' ";
@@ -106,7 +108,7 @@
      	
      	$descr_acao = "Salvar";
 
-     	$sql = "select iddoenca, ocorrenciadoenca
+     	$sql = "select iddoenca, ocorrenciadoenca,medicamento
      		        from doenca 
      	        where iddoenca = '$iddoenca' ";
 
@@ -118,6 +120,7 @@
 
              $iddoenca = $dados["iddoenca"];
              $ocorrencia = $dados["ocorrenciadoenca"];
+             $medicamento = $dados["medicamento"];
              
      	}
 
@@ -127,7 +130,7 @@
 
    
 	 
-   $sql_listar = "select iddoenca, ocorrenciadoenca from doenca order by ocorrenciadoenca";
+   $sql_listar = "select iddoenca, ocorrenciadoenca, medicamento from doenca order by ocorrenciadoenca";
 	 
    $lista = mysqli_query($bd, $sql_listar);
 	 
@@ -136,27 +139,28 @@
 		$tabela = "<table border='4'>";
 		
 		$tabela = $tabela."<tr><th>Número da doença</th><th>Data da doença</th>
-		             <th>Alterar</th><th>Excluir</th></tr>";
+		             <th>Alterar</th>Medicamento Usado<th>Excluir</th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
-		   $vnum_nf = $dados["iddoenca"];
-		   $vcliente  = $dados["ocorrenciadoenca"];
+		   $viddoenca = $dados["iddoenca"];
+		   $vocorenciadoenca  = $dados["ocorrenciadoenca"];
+		   $vmedicamento = $dados["medicamento"];
 		   
 		   
 		   $alterar = "<form method='post'>
-		                  <input type='hidden' name='iddoenca' value='$vnum_nf'>
+		                  <input type='hidden' name='iddoenca' value='$viddoenca'>
 		                  <input type='hidden' name='acao' value='BUSCAR'>
 		                  <input type='image' src='$btnAlterar'> 
 		               </form>";
 		   
 		   $excluir = "<form method='post'>
-		                  <input type='hidden' name='iddoenca' value='$vnum_nf'>
+		                  <input type='hidden' name='iddoenca' value='$viddoenca'>
 		                  <input type='hidden' name='acao' value='EXCLUIR'>
 		                  <input type='image' src='$btnExcluir'> 
 		               </form>";
 		   
-		   $tabela = $tabela."<tr><td>$vnum_nf</td><td>$vcliente</td>
+		   $tabela = $tabela."<tr><td>$viddoenca</td><td>$vocorenciadoenca</td><td>$vmedicamento</td>
 		        <td>$alterar</td><td>$excluir</td></tr>";
 		}
 		
@@ -187,6 +191,7 @@
 		
 		Código da doença :  <input type="text" name="iddoenca" value="<?php echo $iddoenca; ?>"> <br><br>
 		Data da doença:     <input type="text" name="ocorrenciadoenca" value="<?php echo $ocorrenciadoenca; ?>" size="40"> <br>
+		Medicamento Usado:     <input type="text" name="medicamento" value="<?php echo $medicamento; ?>" size="40"> <br>
 		
 		<br><br>
 		
