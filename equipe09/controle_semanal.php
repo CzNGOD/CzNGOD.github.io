@@ -1,8 +1,6 @@
-
-
 <?php
   
-  $bd = mysqli_connect("localhost","root","","hfw"); //"adelar " é o bd das notas fiscais 
+  $bd = mysqli_connect("localhost","root","","hfw");  
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
@@ -18,12 +16,11 @@
 
   $mensagem = "";
 
-  $idsemana      = "";
-  $semana     = "";
-  $consumosemana       = "";
+  $idsemana  = "";
+  $semana  = "";
+  $consumosemana  = "";
   
   
-  //Essas variáveis servem para indicar qual dos dois radios estarão marcados
   
    
   if ( ! isset($_POST["acao"]) )
@@ -42,7 +39,7 @@
      
      if (strtoupper($acao) == "INCLUIR") {
 		 
-		 $sql = "insert consumo (idsemana, semana, consumosemana)
+		 $sql = "insert into consumo (idsemana, semana, consumosemana)
 		                values ('$idsemana','$semana','$consumosemana')";
 		                
 		 if ( ! mysqli_query($bd, $sql) ) {
@@ -136,13 +133,13 @@
 		
 		$tabela = "<table border='4'>";
 		
-		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Semana Atual</th>
+		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Seamana Atual</th>
 		             <th>Consumo Acumulado</th><th>Alterar</th><th>Excluir</th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
 		   $vidsemana = $dados["idsemana"];
-		   $vsemana  = $dados["semana"];
+		   $vidsemana  = $dados["semana"];
 		   $vconsumosemana  = $dados["consumosemana"];
 		   
 
@@ -154,13 +151,13 @@
 		               </form>";
 		   
 		   $excluir = "<form method='post'>
-		                  <input type='hidden' name='idsemana value='$idsemana'>
+		                  <input type='hidden' name='idsemana' value='$idsemana'>
 		                  <input type='hidden' name='acao' value='EXCLUIR'>
 		                  <input type='image' src='$btnExcluir'> 
 		               </form>";
 		   
-		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$vsemana</td>
-		        <td>$vconsumosemana</td><td>$alterar</td><td>$excluir</td></tr>";
+		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$semana</td>
+		        <td>$consumosemana</td><td>$alterar</td><td>$excluir</td></tr>";
 		}
 		
 		$tabela = $tabela."</table>"; 
@@ -173,13 +170,13 @@
 <html>
 
 <head>
-	<title>Cadastro de Consumo Semanal de Ração</title>
+	<title>Cadastro de Consumo de Ração</title>
 	<meta charset="utf-8" />
 </head>
 
 <body>
 
-	<h2>Cadastro de Consumo Semanal de Ração</h2>
+	<h2>Cadastro de Consumo de Ração</h2>
 	
 	<?php echo $mensagem; ?>
 	
