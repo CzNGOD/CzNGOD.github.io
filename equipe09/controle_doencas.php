@@ -39,7 +39,7 @@ $mensagem = "";
             
             if (! mysqli_query($bd, $sql)) {
                 if (mysqli_errno($bd) == 1062)
-                    $mensagem = "<p style='color: red;'>O numero informado '$idmorte' já existe, tente outro!</p>";
+                    $mensagem = "<p style='color: red;'>O numero informado '$iddoenca' já existe, tente outro!</p>";
                 else
                     $mensagem = "<h3 style='color: red;'>OCORREU UM ERRO AO INSERIR OS DADOS</h3>
                                 <h3>Erro: ".mysqli_error($bd)."</h3>
