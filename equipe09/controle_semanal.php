@@ -65,9 +65,8 @@
 		 $sql = " update consumo
 		          set 
 		              semana = '$semana',
-		              consumosemana = '$consumosemana'
-		              numerolote = '$numerolote'
-		              
+		              consumosemana = '$consumosemana',
+		              numerolote = '$numerolote'  
 		          where
 		              idsemana = '$idsemana' ";
 		              
@@ -111,7 +110,7 @@
      	$descr_acao = "Salvar";
 
      	$sql = "select idsemana, semana, consumosemana, numerolote
-     		        from doenca 
+     		        from consumo 
      	        where idsemana = '$idsemana' ";
 
      	$resultado = mysqli_query($bd, $sql);
@@ -210,21 +209,25 @@
     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="semana" value="<?php echo $semana; ?>" size="50%">
   </div>
   <div class="form-group">
-    <label for="formGroupExampleInput2">Consumo Acumulado da Semana</label>
+    <label for="formGroupExampleInput2">Consumo Acumulado da Semana(Em Kg):</label>
     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="consumosemana" value="<?php echo $consumosemana; ?>" size="50%">
   </div>
 <div class="form-group">
-    <label for="formGroupExampleInput2">Numero de Lote</label>
+    <label for="formGroupExampleInput2">Numero de Lote:</label>
     <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="numerolote" value="<?php echo $numerolote; ?>" size="50%">
   </div>
   <div>
   	<button type="submit" class="btn btn-primary" value="Novo">Novo</button>
   	<button type="submit" class="btn btn-primary" name="acao" value="<?php echo $descr_acao; ?>"><?php echo "$descr_acao"; ?></button>
-  	<br>
+  	<br><br>
   	<div class="alert alert-danger" role="alert">
   Para consultar os Valores de Referência <a href="consultatabela.html" class="alert-link">Clique aqui</a></div>
+  </div><br>
+  <div class="alert alert-danger" role="alert">
+  Para calcular a Média Diária <a href="mediadiaria.php" class="alert-link">Clique aqui</a></div>
   </div>
-</div>
+  </div>
+
 </form>
 	
 	</td>
