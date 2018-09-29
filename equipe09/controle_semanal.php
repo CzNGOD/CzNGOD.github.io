@@ -1,6 +1,6 @@
 <?php
   
-  $bd = mysqli_connect("localhost","root","","hfw");  
+  $bd = mysqli_connect("localhost","root","","hfw"); 
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
@@ -10,43 +10,43 @@
 	 exit();
   }
   
-  $btnExcluir = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/excluir.png";
-  $btnAlterar = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/alterar.png";
+  $btnExcluir = "fotos/excluir.png";
+  $btnAlterar = "fotos/editar.png";
 
 
   $mensagem = "";
 
-  $idsemana  = "";
-  $semana  = "";
-  $consumosemana  = "";
-  $numerolote = "";
+  $idsemana= "";
+  $semana= "";
+  $consumosemana="";
+  $numerolote ="";
   
   
   
-   
   if ( ! isset($_POST["acao"]) )
-     $descr_acao = "Incluir";
+     $descr_acao = "Incluir"; 
   else {
 	 
 	 $acao = $_POST["acao"];
 	 
 	 if (strtoupper($acao) == "INCLUIR" || strtoupper($acao) == "SALVAR" ) {
 	    $idsemana = mysqli_real_escape_string($bd, $_POST["idsemana"] ) ;
-	    $semana  = mysqli_real_escape_string($bd, $_POST["semana"] ) ;
-	    $consumosemana = mysqli_real_escape_string($bd, $_POST["consumosemana"] ) ;
-	    $numerolote = mysqli_real_escape_string($bd, $_POST["numerolote"] ) ;
+	    $semana  = mysqli_real_escape_string($bd, $_POST["semana"] );
+	    $consumosemana  = mysqli_real_escape_string($bd, $_POST["consumosemana"] ) ;
+	    $numerolote  = mysqli_real_escape_string($bd, $_POST["numerolote"] ) ;
+	    
 
      }
      
      if (strtoupper($acao) == "INCLUIR") {
 		 
-		 $sql = "insert into consumo (idsemana, semana, consumosemana, numerolote)
-		                values ('$idsemana','$semana','$consumosemana', '$numerolote')";
+		 $sql = "insert into consumo (idsemana, semana,consumosemana, numerolote)
+		                values ('$idsemana','$semana', '$consumosemana', '$numerolote')";
 		                
 		 if ( ! mysqli_query($bd, $sql) ) {
 			
 			 if ( mysqli_errno($bd) == 1062 )
-			    $mensagem = "O numero registrado '$idsemana' já existe, tente outro!";
+			    $mensagem = "O registro informado '$idsemana' já existe, tente outra!";
 			 else
 			    $mensagem = "<h3>Ocorreu um erro ao inserir os dados </h3>
 			              <h3>Erro: ".mysqli_error($bd)."</h3>
@@ -67,6 +67,7 @@
 		              semana = '$semana',
 		              consumosemana = '$consumosemana'
 		              numerolote = '$numerolote'
+		              
 		          where
 		              idsemana = '$idsemana' ";
 		              
@@ -94,20 +95,23 @@
 			              <h3>Erro: ".mysqli_error($bd)."</h3>
 			              <h3>SQL: $sql </h3>
 			              <h3>Código: ".mysqli_errno($bd)."</h3>";
+			              
+			
+			 
 			 
 		 }
 
-		 $idsemana ="";
+		 $iddoenca = " ";
      }
 
      if (strtoupper($acao) == "BUSCAR") {
 
-        $idsemana = $_POST["$idsemana"];
+        $idsemana = $_POST["idsemana"];
      	
      	$descr_acao = "Salvar";
 
-     	$sql = "select idsemana, semana, consumosemana, numerolote 
-     		        from consumo
+     	$sql = "select idsemana, semana, consumosemana, numerolote
+     		        from doenca 
      	        where idsemana = '$idsemana' ";
 
      	$resultado = mysqli_query($bd, $sql);
@@ -119,8 +123,8 @@
              $idsemana = $dados["idsemana"];
              $semana = $dados["semana"];
              $consumosemana = $dados["consumosemana"];
-             $$numerolote = $dados["numerolote"];
-            
+             $numerolote = $dados['numerolote'];
+             
      	}
 
      }
@@ -128,40 +132,43 @@
    }
 
    
+	 
    $sql_listar = "select idsemana, semana, consumosemana, numerolote from consumo order by idsemana";
 	 
    $lista = mysqli_query($bd, $sql_listar);
 	 
    if ( mysqli_num_rows($lista) > 0 ) {
 		
-		$tabela = "<table border='4'>";
+		$tabela = "";
 		
-		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Seamana Atual</th>
-		             <th>Consumo Acumulado</th><th>Lote Numero:</th><th>Alterar</th><th>Excluir</th></tr>";
+		$tabela = $tabela."<div class='container-fluid' size='50px'><tr><th><div class='alert alert-success' role='alert'>Numero de registro</div></th>
+		<th><div class='alert alert-success' role='alert'>SemanaAtual</div></th>
+		<th><div class='alert alert-success' role='alert'>Consumo Acumulado da Semana</div></th>
+		<th><div class='alert alert-success' role='alert'>Numero de Lote</div></th>
+		<th><div class='alert alert-danger' role='alert'>Alterar</div></th>
+		<th><div class='alert alert-danger' role='alert'>Excluir</div></th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
 		   $vidsemana = $dados["idsemana"];
 		   $vsemana  = $dados["semana"];
-		   $vconsumosemana  = $dados["consumosemana"];
-		   $vnumerolote = $dados["numerolote"];
-		   
-
+		   $vconsumosemana = $dados["consumosemana"];
+		   $vnumerolote = $dados["numerolote"];		   
 		   
 		   $alterar = "<form method='post'>
-		                  <input type='hidden' name='idsemana' value='$idsemana'>
+		                  <input type='hidden' name='idsemana' value='$vidsemana'>
 		                  <input type='hidden' name='acao' value='BUSCAR'>
 		                  <input type='image' src='$btnAlterar'> 
 		               </form>";
 		   
 		   $excluir = "<form method='post'>
-		                  <input type='hidden' name='idsemana' value='$idsemana'>
+		                  <input type='hidden' name='idsemana' value='$vidsemana'>
 		                  <input type='hidden' name='acao' value='EXCLUIR'>
 		                  <input type='image' src='$btnExcluir'> 
 		               </form>";
 		   
-		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$vsemana</td>
-		        <td>$vconsumosemana</td><td>$vnumerolote</td><td>$alterar</td><td>$excluir</td></tr>";
+		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$vsemana</td><td>$vconsumosemana</td><td>$vnumerolote</td>
+		        <td>$alterar</td><td>$excluir</td></tr></div>";
 		}
 		
 		$tabela = $tabela."</table>"; 
@@ -174,158 +181,72 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="estilos.css">></li>
+	<title>Controle de Consumo de Ração</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 
 <body>
-	<table class="tabelageral" > <!-- Tag da tabela principal que alinha os objetos-->
-
-
-	<tr><!-- Itens da Direita da Tela-->
-	<?php echo $mensagem; ?>
+	<table>
+	<th>
+		<div class="alert alert-primary" role="alert">Controle de Consumo de Ração</div>
+	</th>
 	
-		<td class="dados">
-		<h2>Dados do Usuário</h2>
-		
+	
+	<tr>
+		<td>
+<div class="container-fluid" height="50px">
+
 		<form action="controle_semanal.php" method="post">
-		Numero de Registro:  <input type="text" name="idsemana" value="<?php echo $idsemana; ?>"> <br>
-		Semana Atual: <input type="text" name="semana" value="<?php echo $semana; ?>" size="40"> <br>
-		Consumo Acumulado: <input type="text" name="consumosemana" value="<?php echo $consumosemana; ?>"> <br>
-		Numero do Lote: <input type="text" name="numerolote" value="<?php echo $numerolote; ?>"> <br>
-		<br><br>
-		
-		<input type="submit" value="Novo">
-		<input type="submit" name="acao" value="<?php echo $descr_acao; ?>">      
-		      
-		</form>
-		
-		<legend>Dados Cadastrados</legend>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Numero de registro:</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="" name="idsemana" value="<?php echo $idsemana; ?>" size="50%">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Semana Atual</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="semana" value="<?php echo $semana; ?>" size="50%">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Consumo Acumulado da Semana</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="consumosemana" value="<?php echo $consumosemana; ?>" size="50%">
+  </div>
+<div class="form-group">
+    <label for="formGroupExampleInput2">Numero de Lote</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="" name="numerolote" value="<?php echo $numerolote; ?>" size="50%">
+  </div>
+  <div>
+  	<button type="submit" class="btn btn-primary" value="Novo">Novo</button>
+  	<button type="submit" class="btn btn-primary" name="acao" value="<?php echo $descr_acao; ?>"><?php echo "$descr_acao"; ?></button>
+  	<br>
+  	<div class="alert alert-danger" role="alert">
+  Para consultar os Valores de Referência <a href="consultatabela.html" class="alert-link">Clique aqui</a></div>
+  </div>
+</div>
+</form>
+	
+	</td>
+
+</div>
+
+	<td>
+
+
+	</td>
+</tr>	
+<td>
+	<legend>Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
 	
-		</td>
-
-		<td > <!-- Itens da Esquerda da Tela-->
-		<table class="tabelareferencia" >
-			<tr>
-				<td>Semana</td>
-				<td>Consumo Recomendado por Semana</td>
-				<td>Consumo Minimo Recomendado por Semana</td>
-			</tr>
-			<tr>
-				<td>Semana 1</td>
-				<td>9,10 kg por Animal</td>
-				<td>7,15 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 2</td>
-				<td>19,16 kg por Animal</td>
-				<td>17,76 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 3</td>
-				<td>30,70 kg por Animal</td>
-				<td>29,11 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 4</td>
-				<td>43,03 kg por Animal</td>
-				<td>40,27 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 5</td>
-				<td>56,27 kg por Animal</td>
-				<td>52,53 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 6</td>
-				<td>70,27 kg por Animal</td>
-				<td>67,30 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 7</td>
-				<td>84,99 kg por Animal</td>
-				<td>78,56 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 8</td>
-				<td>100,30 kg por Animal</td>
-				<td>93,64 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 9</td>
-				<td>116,21 kg por Animal</td>
-				<td>109,78 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 10</td>
-				<td>132,70 kg por Animal</td>
-				<td>127.50 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 11</td>
-				<td>149,76 kg por Animal</td>
-				<td>140,59 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 12</td>
-				<td>167,32 kg por Animal</td>
-				<td>159,30 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 13</td>
-				<td>185,40 kg por Animal</td>
-				<td>180,67 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 14</td>
-				<td>204,01 kg por Animal</td>
-				<td>192,34 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 15</td>
-				<td>222,86 kg por Animal</td>
-				<td>217,20 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 16</td>
-				<td>241,76 kg por Animal</td>
-				<td>234,57 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 17</td>
-				<td>260,66 kg por Animal</td>
-				<td>245,70 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 18</td>
-				<td>279,56 kg por Animal</td>
-				<td>253,20 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 19</td>
-				<td>298,46 kg por Animal</td>
-				<td>260,48 Kg por Animal</td>
-			</tr>
-			<tr>
-				<td>Semana 20</td>
-				<td>317,36 kg por Animal</td>
-				<td>290,52 Kg por Animal</td>
-			</tr>
-		</table>
-
-
-		</td>
-	
-	
-	
-	
+	<?php echo $mensagem; ?>
 
 	<br><br>
-
-	</tr>
+</td>
 	</table>
-	
+
 </body>
 
 </html>
@@ -335,4 +256,3 @@
   mysqli_close($bd);
 
 ?>
-
