@@ -1,6 +1,6 @@
 <?php
   
-  $bd = mysqli_connect("localhost","root","usbw","hackathon"); //"adelar " é o bd das notas fiscais 
+  $bd = mysqli_connect("localhost","root","","hfw"); //"adelar " é o bd das notas fiscais 
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
