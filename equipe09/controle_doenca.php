@@ -1,8 +1,6 @@
-
-
 <?php
   
-  $bd = mysqli_connect("localhost","root","","hfw"); //"adelar " é o bd das notas fiscais 
+  $bd = mysqli_connect("localhost","root","usbw","hackathon"); //"adelar " é o bd das notas fiscais 
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
@@ -13,42 +11,40 @@
   }
   
   $btnExcluir = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/excluir.png";
-  $btnAlterar = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/alterar.png";
+  $btnAlterar = //"http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/alterar.png";
 
 
   $mensagem = "";
 
-  $idsemana      = "";
-  $semana     = "";
-  $consumosemana       = "";
-  
+  $iddoenca= "";
+  $ocorrenciadoenca= "";
   
   //Essas variáveis servem para indicar qual dos dois radios estarão marcados
   
-   
+  
   if ( ! isset($_POST["acao"]) )
-     $descr_acao = "Incluir";
+     $descr_acao = "Incluir"; //
   else {
 	 
 	 $acao = $_POST["acao"];
 	 
 	 if (strtoupper($acao) == "INCLUIR" || strtoupper($acao) == "SALVAR" ) {
-	    $idsemana = mysqli_real_escape_string($bd, $_POST["idsemana"] ) ;
-	    $semana  = mysqli_real_escape_string($bd, $_POST["semana"] ) ;
-	    $consumosemana = mysqli_real_escape_string($bd, $_POST["consumosemana"] ) ;
+	    $iddoenca = mysqli_real_escape_string($bd, $_POST["iddoenca"] ) ;
+	    $ocorrenciadoenca  = mysqli_real_escape_string($bd, $_POST["ocorrenciadoenca"] ) ;
+	    
 	    
 
      }
      
      if (strtoupper($acao) == "INCLUIR") {
 		 
-		 $sql = "insert consumo (idsemana, semana, consumosemana)
-		                values ('$idsemana','$semana','$consumosemana')";
+		 $sql = "insert into doenca (iddoenca, ocorrenciadoenca)
+		                values ('$iddoenca','$ocorrenciadoenca')";
 		                
 		 if ( ! mysqli_query($bd, $sql) ) {
 			
 			 if ( mysqli_errno($bd) == 1062 )
-			    $mensagem = "O numero registrado '$idsemana' já existe, tente outro!";
+			    $mensagem = "A nota  informada '$iddoenca' já existe, tente outra!";
 			 else
 			    $mensagem = "<h3>Ocorreu um erro ao inserir os dados </h3>
 			              <h3>Erro: ".mysqli_error($bd)."</h3>
@@ -64,12 +60,12 @@
 		 
 		 $descr_acao = "Salvar";
 		 
-		 $sql = " update consumo
+		 $sql = " update doenca 
 		          set 
-		              semana = '$semana',
-		              consumosemana = '$consumosemana'
+		              ocorrenciadoenca = '$ocorrenciadoenca',
+		              
 		          where
-		              idsemana = '$idsemana' ";
+		              iddoenca = '$iddoenca' ";
 		              
 		 if ( ! mysqli_query($bd, $sql) ) {
 			 
@@ -83,11 +79,11 @@
 
      if (strtoupper($acao) == "EXCLUIR") {
         
-        $idsemana = $_POST["idsemana"];
+        $iddoenca = $_POST["iddoenca"];
 
      	$descr_acao = "Incluir";
 
-     	$sql = "delete from consumo where idsemana = '$idsemana' ";
+     	$sql = "delete from doenca where iddoenca = '$iddoenca' ";
 
      	if ( ! mysqli_query($bd, $sql) ) {
 			 
@@ -95,21 +91,24 @@
 			              <h3>Erro: ".mysqli_error($bd)."</h3>
 			              <h3>SQL: $sql </h3>
 			              <h3>Código: ".mysqli_errno($bd)."</h3>";
+			              
+			
+			 
 			 
 		 }
 
-		 $idsemana ="";
+		 $iddoenca = " ";
      }
 
      if (strtoupper($acao) == "BUSCAR") {
 
-        $idsemana = $_POST["$idsemana"];
+        $iddoenca = $_POST["iddoenca"];
      	
      	$descr_acao = "Salvar";
 
-     	$sql = "select idsemana, semana, consumosemana,  
-     		        from consumo
-     	        where idsemana = '$idsemana' ";
+     	$sql = "select iddoenca, ocorrenciadoenca
+     		        from doenca 
+     	        where iddoenca = '$iddoenca' ";
 
      	$resultado = mysqli_query($bd, $sql);
 
@@ -117,10 +116,9 @@
 
              $dados = mysqli_fetch_assoc($resultado);
 
-             $idsemana = $dados["idsemana"];
-             $semana = $dados["semana"];
-             $consumosemana = $dados["consumosemana"];
-            
+             $iddoenca = $dados["iddoenca"];
+             $ocorrencia = $dados["ocorrenciadoenca"];
+             
      	}
 
      }
@@ -128,7 +126,8 @@
    }
 
    
-   $sql_listar = "select idsemana, semana, consumosemana from consumo order by idsemana";
+	 
+   $sql_listar = "select iddoenca, ocorrenciadoenca from doenca order by ocorrenciadoenca";
 	 
    $lista = mysqli_query($bd, $sql_listar);
 	 
@@ -136,31 +135,29 @@
 		
 		$tabela = "<table border='4'>";
 		
-		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Semana Atual</th>
-		             <th>Consumo Acumulado</th><th>Alterar</th><th>Excluir</th></tr>";
+		$tabela = $tabela."<tr><th>Número da doença</th><th>Data da doença</th>
+		             <th>Alterar</th><th>Excluir</th></tr>";
 		 
 		while ( $dados = mysqli_fetch_assoc($lista) ) {
 		   
-		   $vidsemana = $dados["idsemana"];
-		   $vsemana  = $dados["semana"];
-		   $vconsumosemana  = $dados["consumosemana"];
+		   $vnum_nf = $dados["iddoenca"];
+		   $vcliente  = $dados["ocorrenciadoenca"];
 		   
-
 		   
 		   $alterar = "<form method='post'>
-		                  <input type='hidden' name='idsemana' value='$idsemana'>
+		                  <input type='hidden' name='iddoenca' value='$vnum_nf'>
 		                  <input type='hidden' name='acao' value='BUSCAR'>
 		                  <input type='image' src='$btnAlterar'> 
 		               </form>";
 		   
 		   $excluir = "<form method='post'>
-		                  <input type='hidden' name='idsemana value='$idsemana'>
+		                  <input type='hidden' name='iddoenca' value='$vnum_nf'>
 		                  <input type='hidden' name='acao' value='EXCLUIR'>
 		                  <input type='image' src='$btnExcluir'> 
 		               </form>";
 		   
-		   $tabela = $tabela."<tr><td>$vidsemana</td><td>$vsemana</td>
-		        <td>$vconsumosemana</td><td>$alterar</td><td>$excluir</td></tr>";
+		   $tabela = $tabela."<tr><td>$vnum_nf</td><td>$vcliente</td>
+		        <td>$alterar</td><td>$excluir</td></tr>";
 		}
 		
 		$tabela = $tabela."</table>"; 
@@ -173,23 +170,24 @@
 <html>
 
 <head>
-	<title>Cadastro de Consumo Semanal de Ração</title>
+	<title>Cadastro das doenças </title>
 	<meta charset="utf-8" />
 </head>
 
 <body>
 
-	<h2>Cadastro de Consumo Semanal de Ração</h2>
+	<h2>Página para cadastro das  doenças </h2>
 	
 	<?php echo $mensagem; ?>
 	
 	<fieldset>
-		<legend>Dados do Usuário</legend>
+		<legend>Dados das doenças:</legend>
 		
-		<form action="controle_semanal.php" method="post">
-		Numero de Registro:  <input type="text" name="idsemana" value="<?php echo $idsemana; ?>"> <br>
-		Semana Atual: <input type="text" name="semana" value="<?php echo $semana; ?>" size="40"> <br>
-		Consumo Acumulado: <input type="text" name="consumosemana" value="<?php echo $consumosemana; ?>"> <br>
+		<form action="index.php" method="post">
+		
+		Código da doença :  <input type="text" name="iddoenca" value="<?php echo $iddoenca; ?>"> <br><br>
+		Data da doença:     <input type="text" name="ocorrenciadoenca" value="<?php echo $ocorrenciadoenca; ?>" size="40"> <br>
+		
 		<br><br>
 		
 		<input type="submit" value="Novo">
@@ -200,14 +198,15 @@
 	</fieldset>
 
 	<fieldset>
-	<legend>Dados Cadastrados</legend>
+	<legend>Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
 	
 	</fieldset>
 
 	<br><br>
-	
+	<hr>
+	<b>Desenvolvido por</b>: Equipe Pino!
 </body>
 
 </html>
@@ -217,4 +216,3 @@
   mysqli_close($bd);
 
 ?>
-

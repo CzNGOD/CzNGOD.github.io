@@ -1,6 +1,6 @@
 <?php
-
-  $bd = mysqli_connect("localhost","root","","hfw");
+  
+  $bd = mysqli_connect("localhost","root","","hfw"); //"adelar " é o bd das notas fiscais 
 
   if ($bd) {
   	mysqli_set_charset($bd, "utf8");
@@ -9,133 +9,203 @@
 	 echo "Mensagem de erro: ".mysqli_connect_error() ;
 	 exit();
   }
-
-$mensagem = "";
-
-    $idmorte = "";
-    $pesoanimal = "";
-    $datamorte = "";
-    
-    
-    
-    if ( ! isset($_POST["acao"]) )
-        $descr_acao = "CADASTRAR";
-    else {
-        $acao = $_POST["acao"];
-        
-        if (strtoupper($acao) == "CADASTRAR" || strtoupper($acao) == "CADASTRAR") {
-            
-            $idmorte = mysqli_real_escape_string($bd, $_POST["idmorte"]);
-            $pesoanimal = mysqli_real_escape_string($bd, $_POST["pesoanimal"]);
-            $datamorte = mysqli_real_escape_string($bd, $_POST["datamorte"]);    
-            
-             
-        }  
-        
-        if (strtoupper($acao) == "CADASTRAR") {
-            
-            $sql = "insert into morte (idmorte, pesoanimal, datamorte)
-                        values ('$idmorte', '$pesoanimal', '$datamorte')";
-            
-            if (! mysqli_query($bd, $sql)) {
-                if (mysqli_errno($bd) == 1062)
-                    $mensagem = "<p style='color: red;'>O numero informado '$idmorte' já existe, tente outro!</p>";
-                else
-                    $mensagem = "<h3 style='color: red;'>OCORREU UM ERRO AO INSERIR OS DADOS</h3>
-                                <h3>Erro: ".mysqli_error($bd)."</h3>
-                                <h3>Código: ".mysqli_errno($bd)."</h3>";
-                
-                $descr_acao = "CADASTRAR";
-            } else{
-                $descr_acao = "CADASTRAR";
-                $mensagem = "<p style='color: green;'>Cadastro efetuado com sucesso!</p><br>";
-            }
-        }
-        
-        if (strtoupper($acao) == "CADASTRAR") {
-            
-            $descr_acao = "CADASTRAR";
-            
-            $sql = " update morte
-                     set
-                        pesoanimal = '$pesoanimal',
-                        datamorte = '$datamorte'
-                        
-                     where
-                        idmorte = '$idmorte'";
-            
-            if ( ! mysqli_query($bd, $sql) ){
-                $mensagem = "<h3 style='color: red;'>Ocorreu um erro ao alterar os dados</h3>
-                <h3>".mysqli_error($bd)."</h3>".$sql."<h4>".mysqli_errno($bd)."</h4>";
-            }else{
-            	$mensagem = "<p style='color: green;'>Dados cadastrados com sucesso!</p>";
-            }
-        }
-        
-        
-        if (strtoupper($acao) == "BUSCAR") {
-            
-            $idmorte = $_POST["idmorte"];
-            
-            $descr_acao = "CADASTRAR";
-            
-            $sql = "select idmorte, pesoanimal, datamorte, 
-                    from morte
-                    where idmorte = '$idmorte'"; 
-            
-            $resultado = mysqli_query($bd, $sql);
-            
-            if (mysqli_num_rows($resultado) == 1) {
-                
-                $dados = mysqli_fetch_assoc($resultado);
-                
-                $idmorte = $dados["idmorte"];
-                $pesoanimal = $dados["pesoanimal"];
-                $datamorte = $dados["datamorte"];
-               
-            }
-        }
-    }
+  
+  $btnExcluir = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/excluir.png";
+  $btnAlterar = "http://inf.fw.iffarroupilha.edu.br/~bruno/disciplinas/programacao_web1/alterar.png";
 
 
-       
+  $mensagem = "";
+
+  $idmorte      = "";
+  $pesoanimal     = "";
+  $datamorte       = "";
+  
+  
+  //Essas variáveis servem para indicar qual dos dois radios estarão marcados
+  
+   
+  if ( ! isset($_POST["acao"]) )
+     $descr_acao = "Incluir";
+  else {
+	 
+	 $acao = $_POST["acao"];
+	 
+	 if (strtoupper($acao) == "INCLUIR" || strtoupper($acao) == "SALVAR" ) {
+	    $idmorte = mysqli_real_escape_string($bd, $_POST["idmorte"] ) ;
+	    $pesoanimal  = mysqli_real_escape_string($bd, $_POST["pesoanimal"] ) ;
+	    $datamorte = mysqli_real_escape_string($bd, $_POST["datamorte"] ) ;
+	    
+
+     }
+     
+     if (strtoupper($acao) == "INCLUIR") {
+		 
+		 $sql = "insert morte (idmorte, pesoanimal, datamorte)
+		                values ('$idmorte','$pesoanimal','$datamorte')";
+		                
+		 if ( ! mysqli_query($bd, $sql) ) {
+			
+			 if ( mysqli_errno($bd) == 1062 )
+			    $mensagem = "O numero registrado '$idmorte' já existe, tente outro!";
+			 else
+			    $mensagem = "<h3>Ocorreu um erro ao inserir os dados </h3>
+			              <h3>Erro: ".mysqli_error($bd)."</h3>
+			              <h3>SQL: $sql </h3>
+			              <h3>Código: ".mysqli_errno($bd)."</h3>";
+		   	 
+		   	 $descr_acao = "Incluir";
+		 } else 
+		     $descr_acao = "Salvar";
+	 }
+	 
+	 if (strtoupper($acao) == "SALVAR") {
+		 
+		 $descr_acao = "Salvar";
+		 
+		 $sql = " update morte
+		          set 
+		              pesoanimal = '$pesoanimal',
+		              datamorte = '$datamorte'
+		          where
+		              idmorte = '$idmorte' ";
+		              
+		 if ( ! mysqli_query($bd, $sql) ) {
+			 
+			 $mensagem = "<h3>Ocorreu um erro ao alterar os dados </h3>
+			              <h3>Erro: ".mysqli_error($bd)."</h3>
+			              <h3>SQL: $sql </h3>
+			              <h3>Código: ".mysqli_errno($bd)."</h3>";
+			 
+		 }
+	 }
+
+     if (strtoupper($acao) == "EXCLUIR") {
+        
+        $idmorte = $_POST["idmorte"];
+
+     	$descr_acao = "Incluir";
+
+     	$sql = "delete from morte where idmorte = '$idmorte' ";
+
+     	if ( ! mysqli_query($bd, $sql) ) {
+			 
+			 $mensagem = "<h3>Ocorreu um erro ao excluir os dados </h3>
+			              <h3>Erro: ".mysqli_error($bd)."</h3>
+			              <h3>SQL: $sql </h3>
+			              <h3>Código: ".mysqli_errno($bd)."</h3>";
+			 
+		 }
+
+		 $idmorte ="";
+     }
+
+     if (strtoupper($acao) == "BUSCAR") {
+
+        $idmorte = $_POST["$idmorte"];
+     	
+     	$descr_acao = "Salvar";
+
+     	$sql = "select idmorte, pesoanimal, datamorte,  
+     		        from morte
+     	        where idmorte = '$idmorte' ";
+
+     	$resultado = mysqli_query($bd, $sql);
+
+     	if (mysqli_num_rows($resultado) == 1) {
+
+             $dados = mysqli_fetch_assoc($resultado);
+
+             $idmorte = $dados["idmorte"];
+             $pesoanimal = $dados["pesoanimal"];
+             $datamorte = $dados["datamorte"];
+            
+     	}
+
+     }
+
+   }
+
+   
+   $sql_listar = "select idmorte, pesoanimal, datamorte from morte order by idmorte";
+	 
+   $lista = mysqli_query($bd, $sql_listar);
+	 
+   if ( mysqli_num_rows($lista) > 0 ) {
+		
+		$tabela = "<table border='4'>";
+		
+		$tabela = $tabela."<tr><th>Numero de Registro</th><th>Peso do Animal</th>
+		             <th>Data da Ocorrencia</th><th>Alterar</th><th>Excluir</th></tr>";
+		 
+		while ( $dados = mysqli_fetch_assoc($lista) ) {
+		   
+		   $vidmorte = $dados["idmorte"];
+		   $vpesoanimal  = $dados["pesoanimal"];
+		   $vdatamorte  = $dados["datamorte"];
+		   
+
+		   
+		   $alterar = "<form method='post'>
+		                  <input type='hidden' name='idmorte' value='$idmorte'>
+		                  <input type='hidden' name='acao' value='BUSCAR'>
+		                  <input type='image' src='$btnAlterar'> 
+		               </form>";
+		   
+		   $excluir = "<form method='post'>
+		                  <input type='hidden' name='idmorte' value='$idmorte'>
+		                  <input type='hidden' name='acao' value='EXCLUIR'>
+		                  <input type='image' src='$btnExcluir'> 
+		               </form>";
+		   
+		   $tabela = $tabela."<tr><td>$vidmorte</td><td>$vpesoanimal</td>
+		        <td>$vdatamorte</td><td>$alterar</td><td>$excluir</td></tr>";
+		}
+		
+		$tabela = $tabela."</table>"; 
+   } else 
+	    $tabela = "não há dados para listar";
+	    
+
 ?>
 
 <html>
 
 <head>
-    <title>Cadastro de Baixa de Animais</title>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href="imagens/icone.jpeg" type="image/x-icon" />
-    
-    <link rel="stylesheet" type="text/css" href="estilos.css"></link>
+	<title>Cadastro de daixa de animais</title>
+	<meta charset="utf-8" />
 </head>
 
 <body>
-    <center>
-	<h3>Cadastro de Baixa de Animais</h3>
-    
-    
 
-    <fieldset class="fieldcad1">
-        <legend><h5>Inclusão de dados</h5></legend>
-        
-        <form action="controle_mortes.php" method="post">
-            Numero <input  type="text" name="idmorte" value="<?php echo $idmorte; ?>"><br><br>
-            Peso do Animal <input  type="text" name="pesoanimal" value="<?php echo $pesoanimal; ?>"><br><br>
-            Data <input  type="text" name="datamorte" value="<?php echo $datamorte; ?>"><br><br>
-            
-            <br><br>
-            <input type="submit" " value="LIMPAR">
-            <input type="submit" name="acao"  value="<?php echo $descr_acao; ?>">
-        </form>
-    </fieldset>
-    
-   
+	<h2>Dados do usuário</h2>
+	
+	<?php echo $mensagem; ?>
+	
+	<fieldset>
+		<legend>Dados do Usuário</legend>
+		
+		<form action="controle_mortes.php" method="post">
+		Numero de Registro:  <input type="text" name="idmorte" value="<?php echo $idmorte; ?>"> <br>
+		Peso do Animal: <input type="text" name="pesoanimal" value="<?php echo $pesoanimal; ?>" size="40"> <br>
+		Data da Ocorrencia: <input type="text" name="datamorte" value="<?php echo $datamorte; ?>"> <br>
+		<br><br>
+		
+		<input type="submit" value="Novo">
+		<input type="submit" name="acao" value="<?php echo $descr_acao; ?>">      
+		      
+		</form>
+	
+	</fieldset>
+
+	<fieldset>
+	<legend>Dados Cadastrados</legend>
+	
+	   <?php echo $tabela; ?>
+	
+	</fieldset>
+
 	<br><br>
 	
-    <?php echo $mensagem ?>
-</center>
 </body>
 
 </html>
@@ -146,5 +216,3 @@ $mensagem = "";
 
 ?>
 
-
- ?>
