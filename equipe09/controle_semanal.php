@@ -170,18 +170,18 @@
 <html>
 
 <head>
-	<title>Cadastro de Consumo de Ração</title>
-	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="estilos.css">></li>
 </head>
 
 <body>
+	<table class="tabelageral" > <!-- Tag da tabela principal que alinha os objetos-->
 
-	<h2>Cadastro de Consumo de Ração</h2>
-	
+
+	<tr><!-- Itens da Direita da Tela-->
 	<?php echo $mensagem; ?>
 	
-	<fieldset>
-		<legend>Dados do Usuário</legend>
+		<td class="dados">
+		<h2>Dados do Usuário</h2>
 		
 		<form action="controle_semanal.php" method="post">
 		Numero de Registro:  <input type="text" name="idsemana" value="<?php echo $idsemana; ?>"> <br>
@@ -193,17 +193,133 @@
 		<input type="submit" name="acao" value="<?php echo $descr_acao; ?>">      
 		      
 		</form>
-	
-	</fieldset>
-
-	<fieldset>
-	<legend>Dados Cadastrados</legend>
+		
+		<legend>Dados Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
 	
-	</fieldset>
+		</td>
+
+		<td > <!-- Itens da Esquerda da Tela-->
+		<table class="tabelareferencia" >
+			<tr>
+				<td>Semana</td>
+				<td>Consumo Recomendado por Semana</td>
+				<td>Consumo Minimo Recomendado por Semana</td>
+			</tr>
+			<tr>
+				<td>Semana 1</td>
+				<td>9,10 kg por Animal</td>
+				<td>7,15 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 2</td>
+				<td>19,16 kg por Animal</td>
+				<td>17,76 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 3</td>
+				<td>30,70 kg por Animal</td>
+				<td>29,11 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 4</td>
+				<td>43,03 kg por Animal</td>
+				<td>40,27 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 5</td>
+				<td>56,27 kg por Animal</td>
+				<td>52,53 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 6</td>
+				<td>70,27 kg por Animal</td>
+				<td>67,30 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 7</td>
+				<td>84,99 kg por Animal</td>
+				<td>78,56 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 8</td>
+				<td>100,30 kg por Animal</td>
+				<td>93,64 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 9</td>
+				<td>116,21 kg por Animal</td>
+				<td>109,78 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 10</td>
+				<td>132,70 kg por Animal</td>
+				<td>127.50 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 11</td>
+				<td>149,76 kg por Animal</td>
+				<td>140,59 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 12</td>
+				<td>167,32 kg por Animal</td>
+				<td>159,30 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 13</td>
+				<td>185,40 kg por Animal</td>
+				<td>180,67 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 14</td>
+				<td>204,01 kg por Animal</td>
+				<td>192,34 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 15</td>
+				<td>222,86 kg por Animal</td>
+				<td>217,20 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 16</td>
+				<td>241,76 kg por Animal</td>
+				<td>234,57 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 17</td>
+				<td>260,66 kg por Animal</td>
+				<td>245,70 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 18</td>
+				<td>279,56 kg por Animal</td>
+				<td>253,20 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 19</td>
+				<td>298,46 kg por Animal</td>
+				<td>260,48 Kg por Animal</td>
+			</tr>
+			<tr>
+				<td>Semana 20</td>
+				<td>317,36 kg por Animal</td>
+				<td>290,52 Kg por Animal</td>
+			</tr>
+		</table>
+
+
+		</td>
+	
+	
+	
+	
 
 	<br><br>
+
+	</tr>
+	</table>
 	
 </body>
 

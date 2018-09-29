@@ -175,12 +175,12 @@
 </head>
 
 <body>
-
-	<h2>Página para cadastro das  doenças </h2>
+	<table>
+	<h2>Página para cadastro das Doenças </h2>
 	
 	<?php echo $mensagem; ?>
 	
-	<fieldset>
+	
 		<legend>Dados das doenças:</legend>
 		
 		<form action="index.php" method="post">
@@ -195,18 +195,19 @@
 		      
 		</form>
 	
-	</fieldset>
+	
 
-	<fieldset>
+	
 	<legend>Cadastrados</legend>
 	
 	   <?php echo $tabela; ?>
 	
-	</fieldset>
+	
 
 	<br><br>
 	<hr>
-	<b>Desenvolvido por</b>: Equipe Pino!
+	</table>
+	
 </body>
 
 </html>
